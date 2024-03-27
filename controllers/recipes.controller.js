@@ -2,8 +2,12 @@ import { Recipesmodel } from "../model/recipe.js";
 
 export const addRecipe = async (req, res, next) => {
   try {
+    console.log(req.body);
     //Add recipe to database
-    const createResult = await Recipesmodel.create(req.body);
+    const createResult = await Recipesmodel.create({
+      ...req.body,
+      image: req.file.filename,
+    });
     //return response
     res.status(201).json(createResult);
   } catch (error) {
